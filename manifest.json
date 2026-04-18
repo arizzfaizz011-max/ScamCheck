@@ -1,0 +1,35 @@
+{
+"name": "ScamCheck MY: Komuniti Anti-Scam",
+"short_name": "ScamCheck",
+"description": "Semak nombor telefon scammer di Malaysia berasaskan laporan komuniti. Lindungi diri daripada penipuan kewangan.",
+"start_url": "/ScamCheck/",
+"display": "standalone",
+"background_color": "#0f172a",
+"theme_color": "#3b82f6",
+"orientation": "portrait",
+"categories": ["utilities", "security"],
+"icons": [
+{
+"src": "2EA58EB5-1F9A-4109-B55E-103311109FF1.png",
+"sizes": "512x512",
+"type": "image/png",
+"purpose": "any maskable"
+}
+],
+"screenshots": [
+{
+"src": "2EA58EB5-1F9A-4109-B55E-103311109FF1.png",
+"sizes": "512x512",
+"type": "image/png",
+"form_factor": "wide",
+"label": "Halaman Utama ScamCheck"
+},
+{
+"src": "2EA58EB5-1F9A-4109-B55E-103311109FF1.png",
+"sizes": "512x512",
+"type": "image/png",
+"form_factor": "narrow",
+"label": "Halaman Utama ScamCheck"
+}
+]
+}

@@ -1,0 +1,18 @@
+```json
+{
+  "name": "ScamCheck MY",
+  "short_name": "ScamCheck",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#3b82f6",
+  "icons": [
+    {
+      "src": "2EA58EB5-1F9A-4109-B55E-103311109FF1.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
+
+```

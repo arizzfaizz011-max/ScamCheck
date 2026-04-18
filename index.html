@@ -1,0 +1,253 @@
+```html
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ScamCheck MY - Anti-Scam Malaysia</title>
+
+    <!-- PWA Meta Tags -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0f172a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="2EA58EB5-1F9A-4109-B55E-103311109FF1.png">
+
+    <!-- Lucide Icons -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/lucide.min.js"></script>
+
+    <style>
+        :root {
+            --bg: #0f172a;
+            --card: #1e293b;
+            --primary: #3b82f6;
+            --success: #22c55e;
+            --danger: #ef4444;
+            --text: #f8fafc;
+            --muted: #94a3b8;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 450px;
+            padding: 24px;
+            box-sizing: border-box;
+        }
+
+        .app-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .app-logo {
+            width: 120px;
+            height: 120px;
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            margin-bottom: 16px;
+            border: 2px solid #334155;
+            background: #1e293b;
+            object-fit: cover;
+        }
+
+        h1 { font-size: 28px; margin: 0; font-weight: 800; letter-spacing: -0.5px; }
+        h1 span { color: #facc15; }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--primary);
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 700;
+            margin-top: 12px;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        .card {
+            background: var(--card);
+            padding: 24px;
+            border-radius: 28px;
+            margin-bottom: 20px;
+            border: 1px solid #334155;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        h3 { margin: 0 0 18px 0; font-size: 19px; display: flex; align-items: center; gap: 10px; }
+
+        input, textarea {
+            width: 100%;
+            padding: 16px;
+            margin-bottom: 14px;
+            background: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 16px;
+            color: #fff;
+            box-sizing: border-box;
+            font-size: 16px;
+            transition: border-color 0.2s;
+        }
+
+        input:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 18px;
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            border-radius: 16px;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            transition: transform 0.1s;
+        }
+
+        button:active { transform: scale(0.98); }
+
+        #result {
+            margin-top: 16px;
+            padding: 18px;
+            border-radius: 16px;
+            text-align: center;
+            font-weight: 800;
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .feed-item {
+            border-bottom: 1px solid #334155;
+            padding: 15px 0;
+        }
+        .feed-item:last-child { border-bottom: none; }
+        .feed-num { color: var(--primary); font-weight: 700; font-size: 15px; }
+        .feed-msg { font-size: 14px; color: var(--muted); margin-top: 4px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="app-header">
+        <img src="2EA58EB5-1F9A-4109-B55E-103311109FF1.png" class="app-logo" alt="Logo ScamCheck">
+        <h1>ScamCheck <span>MY</span></h1>
+        <div class="badge">
+            <i data-lucide="shield-check" size="16"></i> KOMUNITI LINDUNG KOMUNITI
+        </div>
+    </div>
+
+    <div class="card">
+        <h3><i data-lucide="search" size="22" color="#3b82f6"></i> Semakan Nombor</h3>
+        <input type="tel" id="sNum" placeholder="Contoh: 0123456789">
+        <button onclick="check()">Semak Sekarang</button>
+        <div id="result"></div>
+    </div>
+
+    <div class="card">
+        <h3><i data-lucide="megaphone" size="22" color="#ef4444"></i> Lapor Scammer</h3>
+        <input type="tel" id="rNum" placeholder="Nombor telefon scammer">
+        <textarea id="rMsg" placeholder="Apa taktik penipuan mereka?" rows="2"></textarea>
+        <button onclick="report()" style="background:#1e40af;">Hantar Laporan</button>
+    </div>
+
+    <div class="card">
+        <h3><i data-lucide="history" size="22" color="#22c55e"></i> Laporan Terkini</h3>
+        <div id="feed">Memuatkan laporan...</div>
+    </div>
+</div>
+
+<script>
+    // Inisialisasi ikon Lucide
+    lucide.createIcons();
+
+    // Database sementara (Local Storage)
+    let db = JSON.parse(localStorage.getItem('scam_reports_v2')) || [
+        {num: '012XXXX789', msg: 'Scam tawaran kerja TikTok'},
+        {num: '019XXXX432', msg: 'Menyamar pegawai LHDN'}
+    ];
+
+    function check() {
+        const val = document.getElementById('sNum').value.replace(/\D/g,'');
+        const res = document.getElementById('result');
+        if(!val) return;
+        
+        res.style.display = 'block';
+        const found = db.filter(i => i.num.replace(/\D/g,'').includes(val));
+        
+        if(found.length > 0) {
+            res.style.background = 'rgba(239, 68, 68, 0.15)';
+            res.style.color = 'var(--danger)';
+            res.innerHTML = "⚠️ REKOD SCAM DITEMUI DALAM KOMUNITI!";
+        } else {
+            res.style.background = 'rgba(34, 197, 94, 0.15)';
+            res.style.color = 'var(--success)';
+            res.innerHTML = "✅ TIADA REKOD SCAM LAGI.";
+        }
+    }
+
+    function report() {
+        const n = document.getElementById('rNum').value.trim();
+        const m = document.getElementById('rMsg').value.trim();
+        
+        if(!n || !m) {
+            alert("Sila isi nombor dan sebab laporan!");
+            return;
+        }
+        
+        db.unshift({ num: n, msg: m });
+        localStorage.setItem('scam_reports_v2', JSON.stringify(db));
+        
+        alert("Terima kasih! Laporan anda membantu orang lain.");
+        document.getElementById('rNum').value = '';
+        document.getElementById('rMsg').value = '';
+        renderFeed();
+    }
+
+    function renderFeed() {
+        const feed = document.getElementById('feed');
+        if (db.length === 0) {
+            feed.innerHTML = "<p style='color:var(--muted); font-size:14px;'>Tiada laporan baru.</p>";
+            return;
+        }
+        feed.innerHTML = db.slice(0, 5).map(i => `
+            <div class="feed-item">
+                <div class="feed-num">${i.num}</div>
+                <div class="feed-msg">${i.msg}</div>
+            </div>
+        `).join('');
+    }
+
+    // Jalankan feed pada permulaan
+    renderFeed();
+
+    // Daftar Service Worker untuk fungsi Offline (PWA)
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('sw.js')
+                .then(reg => console.log('SW Registered'))
+                .catch(err => console.log('SW Error', err));
+        });
+    }
+</script>
+</body>
+</html>
+
+```
